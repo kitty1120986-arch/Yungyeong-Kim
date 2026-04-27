@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meomuroom — Kim Yungyeong</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #F7F5F0;
+    --white: #FFFFFF;
+    --text: #1A1A1A;
+    --muted: #888780;
+    --border: rgba(0,0,0,0.1);
+    --accent: #FF6842;
+    --radius: 12px;
+    --radius-sm: 6px;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(247,245,240,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+  .nav-logo {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-back {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--text); }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .hero {
+    padding: 4rem 0 3rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .project-tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .hero-desc {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 0.5px solid var(--border);
+  }
+  @media (max-width: 600px) { .meta-grid { grid-template-columns: repeat(2, 1fr); } }
+  .meta-item {}
+  .meta-label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+  .meta-val {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .section {
+    padding: 3rem 0;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .section h2 {
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    margin-bottom: 1rem;
+  }
+  .section p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .section p:last-child { margin-bottom: 0; }
+
+  .img-full {
+    width: 100%;
+    border-radius: var(--radius);
+    border: 0.5px solid var(--border);
+    display: block;
+    margin: 1.5rem 0;
+  }
+  .img-caption {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: -0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .img-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  @media (max-width: 600px) { .img-grid-2 { grid-template-columns: 1fr; } }
+  .img-grid-2 img {
+    width: 100%;
+    border-radius: var(--radius);
+    border: 0.5px solid var(--border);
+    display: block;
+  }
+
+  .img-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  @media (max-width: 600px) { .img-grid-3 { grid-template-columns: 1fr; } }
+  .img-grid-3 img {
+    width: 100%;
+    border-radius: var(--radius);
+    border: 0.5px solid var(--border);
+    display: block;
+  }
+
+  .highlight-box {
+    background: #FF6842;
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin: 1.5rem 0;
+  }
+  .highlight-box p {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  @media (max-width: 600px) { .pain-grid { grid-template-columns: 1fr; } }
+  .pain-card {
+    background: var(--white);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+  }
+  .pain-num {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .pain-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  .pain-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .reflection-box {
+    background: var(--white);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin: 1.5rem 0;
+  }
+  .reflection-box p {
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 0.75rem;
+  }
+  .reflection-box p:last-child { margin-bottom: 0; }
+
+  .nav-projects {
+    padding: 3rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav-proj-link {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-proj-link:hover { color: var(--text); }
+  .back-btn {
+    display: inline-block;
+    font-size: 13px;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    border: 0.5px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    background: var(--white);
+    transition: border-color 0.2s;
+  }
+  .back-btn:hover { border-color: rgba(0,0,0,0.25); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="portfolio_kimyungyeong.html">Kim Yungyeong</a>
+  <a class="nav-back" href="portfolio_kimyungyeong.html">← Back to work</a>
+</nav>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="project-tag">01 — Mobile App</p>
+    <h1>Meomuroom</h1>
+    <p class="hero-desc">A co-living management service that solves chore conflicts, expense splitting, and communication gaps in shared housing — helping residents build warmer connections.</p>
+    <div class="meta-grid">
+      <div class="meta-item">
+        <p class="meta-label">Type</p>
+        <p class="meta-val">Mobile App</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-label">Duration</p>
+        <p class="meta-val">6 months</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-label">Role</p>
+        <p class="meta-val">Individual</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-label">Tools</p>
+        <p class="meta-val">Figma · PS</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="section">
+    <p class="section-label">Overview</p>
+    <h2>How can we make shared living more comfortable and warm?</h2>
+    <p>Meomuroom is a co-living management service that addresses the real friction points of shared housing — unclear chore responsibilities, communication breakdowns, and difficulty splitting expenses fairly.</p>
+    <img class="img-full" src="5.jpg" alt="Meomuroom overview">
+  </div>
+
+  <!-- RESEARCH -->
+  <div class="section">
+    <p class="section-label">Desk Research</p>
+    <h2>Rising single-person households and emerging living models</h2>
+    <p>As single-person households rapidly increase, young people face financial pressure and a desire for social connection — driving demand for shared housing with short-term stays and lower deposits.</p>
+    <img class="img-full" src="6.jpg" alt="Desk research">
+  </div>
+
+  <!-- INTERVIEWS -->
+  <div class="section">
+    <p class="section-label">User Interviews</p>
+    <h2>Identifying real pain points through in-depth interviews</h2>
+    <p>I conducted in-depth interviews with share house residents across Korea, Australia, and the US to understand their lived experiences.</p>
+    <img class="img-full" src="7.jpg" alt="User interviews">
+    <div class="pain-grid">
+      <div class="pain-card">
+        <p class="pain-num">Pain Point 01</p>
+        <p class="pain-title">Shared Space Conflicts</p>
+        <p class="pain-desc">Overlapping use of facilities and stress from prolonged use without clear scheduling.</p>
+      </div>
+      <div class="pain-card">
+        <p class="pain-num">Pain Point 02</p>
+        <p class="pain-title">Limited Social Interaction</p>
+        <p class="pain-desc">Living together but rarely connecting — less interaction than expected despite proximity.</p>
+      </div>
+      <div class="pain-card">
+        <p class="pain-num">Pain Point 03</p>
+        <p class="pain-title">Lack of Management System</p>
+        <p class="pain-desc">No clear task distribution, imbalanced responsibilities, and difficult expense tracking.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPETITIVE ANALYSIS -->
+  <div class="section">
+    <p class="section-label">Competitive Analysis</p>
+    <h2>Identifying gaps and opportunities</h2>
+    <p>Analyzed 5 competing apps — Tody, Sweepy, OurHome, HomeTasker, and Flatify — to map the competitive landscape and find Meomuroom's unique positioning.</p>
+    <img class="img-full" src="8.jpg" alt="Competitive analysis">
+  </div>
+
+  <!-- KEY INSIGHT -->
+  <div class="section">
+    <p class="section-label">Key Insight</p>
+    <div class="highlight-box">
+      <p>In shared living, residents experience discomfort and disconnection due to conflicts and difficulty forming relationships — highlighting the need for a system that helps coordinate daily life and foster natural connections.</p>
+    </div>
+  </div>
+
+  <!-- SOLUTIONS -->
+  <div class="section">
+    <p class="section-label">Problem & Solutions</p>
+    <h2>Defining problems and developing solutions</h2>
+    <img class="img-full" src="10.jpg" alt="Problem and solutions">
+    <img class="img-full" src="11.jpg" alt="Key features">
+  </div>
+
+  <!-- FLOW CHART -->
+  <div class="section">
+    <p class="section-label">Information Architecture</p>
+    <h2>Flow chart</h2>
+    <img class="img-full" src="12.jpg" alt="Flow chart">
+  </div>
+
+  <!-- DESIGN SYSTEM -->
+  <div class="section">
+    <p class="section-label">Design System</p>
+    <h2>Visual identity & design system</h2>
+    <p>A warm primary color and clay-style 3D character (Moru) create an approachable, friendly tone throughout the service.</p>
+    <img class="img-full" src="13.jpg" alt="Design system">
+    <img class="img-full" src="14.jpg" alt="Main character Moru">
+  </div>
+
+  <!-- UI SCREENS -->
+  <div class="section">
+    <p class="section-label">UI Design</p>
+    <h2>Key screens</h2>
+    <img class="img-full" src="15.jpg" alt="Onboarding screens">
+    <p class="img-caption">Onboarding — introducing key features with intuitive illustrations</p>
+    <img class="img-full" src="16.jpg" alt="Home screen">
+    <p class="img-caption">Home — tasks, notices, reservations, and missions at a glance</p>
+    <img class="img-full" src="17.jpg" alt="Chores screen">
+    <p class="img-caption">Chores — fair task distribution with completion records</p>
+    <img class="img-full" src="18.jpg" alt="Communication and expenses">
+    <p class="img-caption">Communication & Split Expenses — chatbot hub and transparent expense tracking</p>
+  </div>
+
+  <!-- REFLECTION -->
+  <div class="section">
+    <p class="section-label">Reflection</p>
+    <h2>What I learned</h2>
+    <div class="reflection-box">
+      <p>The Meomuroom project went beyond simple feature design to focus on relationships and emotions in shared living. Through the project, I found that conflicts often stem from a lack of communication and unclear rules.</p>
+      <p>Based on this, I developed solutions for chores, expenses, and shared spaces within a natural daily flow rather than as separate features. The service is centered around a chatbot that delivers information and encourages user actions, along with features like anonymous feedback to support smoother communication.</p>
+      <p>This experience helped me understand that design is not just about functionality, but about shaping relationships between people.</p>
+    </div>
+    <div class="highlight-box">
+      <p>This project identified the causes of conflicts in shared living and addressed them through a structure based on natural daily flows.</p>
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <div class="nav-projects">
+    <a class="nav-proj-link" href="portfolio_kimyungyeong.html">← All projects</a>
+    <a class="nav-proj-link" href="portfolio_kimyungyeong.html">Sony Korea →</a>
+  </div>
+
+</div>
+
+</body>
+</html>
