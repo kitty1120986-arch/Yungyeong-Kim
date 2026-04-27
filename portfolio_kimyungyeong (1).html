@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kim Yungyeong — UX/UI Designer</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F5F0;
+    --white: #FFFFFF;
+    --black: #1A1A1A;
+    --gray: #888780;
+    --light-gray: #E8E6E0;
+    --accent: #FF6842;
+    --text: #1A1A1A;
+    --text-muted: #888780;
+    --border: rgba(0,0,0,0.1);
+    --radius: 12px;
+    --radius-sm: 6px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(247,245,240,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+  .nav-logo {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 6rem 0 4rem;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border: 0.5px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 12px;
+    margin-bottom: 1.5rem;
+    background: var(--white);
+  }
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--text-muted);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+  .hero-cta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-block;
+    font-size: 13px;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    border: 0.5px solid var(--border);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: var(--white);
+    color: var(--text);
+  }
+  .btn:hover { border-color: rgba(0,0,0,0.25); }
+  .btn-primary {
+    background: var(--text);
+    color: var(--white);
+    border-color: var(--text);
+  }
+  .btn-primary:hover { opacity: 0.85; }
+
+  /* SECTION */
+  section { padding: 4rem 0; border-bottom: 0.5px solid var(--border); }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+  }
+
+  /* WORK GRID */
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  @media (max-width: 640px) { .work-grid { grid-template-columns: 1fr; } }
+
+  .project-card {
+    background: var(--white);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .project-card:hover { border-color: rgba(0,0,0,0.25); }
+  .project-card.featured {
+    grid-column: span 2;
+  }
+  @media (max-width: 640px) { .project-card.featured { grid-column: span 1; } }
+
+  .project-thumb {
+    width: 100%;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+  .project-card.featured .project-thumb { height: 300px; }
+  .thumb-meomu { background: #FF6842; color: #fff; }
+  .thumb-sony { background: #1A1A1A; color: #fff; letter-spacing: 0.08em; }
+  .thumb-aus { background: #083155; color: #B5D4F4; }
+  .thumb-naming { background: #F0D4C8; color: #6B2E14; }
+
+  .project-info {
+    padding: 1.25rem;
+    border-top: 0.5px solid var(--border);
+  }
+  .project-number {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+  }
+  .project-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+  .project-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    background: var(--bg);
+    color: var(--text-muted);
+    border: 0.5px solid var(--border);
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  @media (max-width: 640px) { .about-grid { grid-template-columns: 1fr; } }
+
+  .about-bio {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.8;
+  }
+  .about-bio p + p { margin-top: 1rem; }
+
+  .skills-block h3 {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    margin-top: 1.5rem;
+  }
+  .skills-block h3:first-child { margin-top: 0; }
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .skill {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: var(--white);
+    border: 0.5px solid var(--border);
+    color: var(--text);
+  }
+
+  .creds-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+  }
+  .creds-table td {
+    padding: 0.75rem 0;
+    font-size: 13px;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .creds-table td:first-child { color: var(--text-muted); width: 120px; }
+  .creds-table td:last-child { color: var(--text); font-weight: 500; }
+
+  /* CONTACT */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  @media (max-width: 640px) { .contact-grid { grid-template-columns: 1fr; } }
+
+  .contact-headline {
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 1rem;
+  }
+  .contact-note {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .contact-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 13px;
+  }
+  .contact-info-row:first-child { border-top: 0.5px solid var(--border); }
+  .ci-label { color: var(--text-muted); }
+  .ci-val { color: var(--text); font-weight: 500; }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* OPEN TO WORK BADGE */
+  .otw {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    background: #E8F5E9;
+    color: #2E7D32;
+    border: 0.5px solid #A5D6A7;
+    margin-bottom: 1.5rem;
+  }
+  .otw-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #43A047;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">Kim Yungyeong</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="otw"><span class="otw-dot"></span> Open to work — Singapore · Canada · UK</div>
+    <h1>Balancing<br>What's Different.</h1>
+    <p class="hero-sub">UX/UI Designer connecting user emotion, technology, and diverse perspectives into one cohesive experience. Background in Industrial Design, fluent in systems thinking.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#work">View work</a>
+      <a class="btn" href="mailto:yk206051@gmail.com">yk206051@gmail.com</a>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <p class="section-label">Selected work</p>
+    <div class="work-grid">
+
+      <div class="project-card featured" onclick="location.href='meomuroom.html'" style="cursor:pointer;">
+        <div class="project-thumb thumb-meomu">Meomuroom</div>
+        <div class="project-info">
+          <p class="project-number">01</p>
+          <p class="project-title">Meomuroom — Co-living Management App</p>
+          <p class="project-desc">A mobile service solving chore conflicts, expense splitting, and communication gaps in shared housing. Designed end-to-end from user interviews through final UI across 6 months.</p>
+          <div class="project-tags">
+            <span class="tag">UX Research</span>
+            <span class="tag">User Interviews</span>
+            <span class="tag">Mobile App</span>
+            <span class="tag">Figma</span>
+            <span class="tag">6 months</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb thumb-sony">SONY KOREA</div>
+        <div class="project-info">
+          <p class="project-number">02</p>
+          <p class="project-title">Sony Korea — Website Redesign</p>
+          <p class="project-desc">Restructured Sony Korea's product browsing from listing-first to goal-driven, improving discovery and brand clarity through purpose-based filtering and UX strategy.</p>
+          <div class="project-tags">
+            <span class="tag">Website Redesign</span>
+            <span class="tag">UX Strategy</span>
+            <span class="tag">4 weeks</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb thumb-aus">AUSTRALIA</div>
+        <div class="project-info">
+          <p class="project-number">03</p>
+          <p class="project-title">Australia Travel Promotion</p>
+          <p class="project-desc">Promotion page combining hand-crafted illustration with purpose-driven content flow — adapted across web and Instagram formats.</p>
+          <div class="project-tags">
+            <span class="tag">Promotion Design</span>
+            <span class="tag">Illustration</span>
+            <span class="tag">SNS</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card" style="display: none; grid-column: span 2;">
+        <div class="project-thumb thumb-naming">NAMING</div>
+        <div class="project-info">
+          <p class="project-number">04</p>
+          <p class="project-title">Naming Cosmetics — Launch Promotion</p>
+          <p class="project-desc">Product launch page for Overdew Glow Lip Tint, structured to communicate features and drive purchases through clear visual hierarchy and CTA placement.</p>
+          <div class="project-tags">
+            <span class="tag">E-commerce</span>
+            <span class="tag">Visual Design</span>
+            <span class="tag">1 week</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label">About</p>
+    <div class="about-grid">
+      <div class="about-bio">
+        <p>I'm a UX/UI designer based in Busan, Korea with a B.A. in Industrial Design from Dong-A University (2021–2026).</p>
+        <p>My background in physical product design gives me a grounded, systems-thinking approach to digital experiences. I care deeply about the context users live in — not just the screens they look at.</p>
+        <p>I design by balancing different elements: user emotion, technical constraints, and collaborative perspectives — bringing them into one cohesive whole.</p>
+        <p>Currently seeking opportunities to bring this perspective to global teams — particularly in Singapore, Canada, and the UK.</p>
+        <table class="creds-table">
+          <tr><td>Degree</td><td>B.A. Industrial Design, Dong-A University</td></tr>
+          <tr><td>English</td><td>IELTS Overall 5.5</td></tr>
+          <tr><td>GTQ</td><td>Photoshop Level 1 · Illustrator Level 2</td></tr>
+          <tr><td>Location</td><td>Busan, South Korea</td></tr>
+        </table>
+      </div>
+      <div class="skills-block">
+        <h3>Design tools</h3>
+        <div class="skills-list">
+          <span class="skill">Figma</span>
+          <span class="skill">Adobe Photoshop</span>
+          <span class="skill">Adobe Illustrator</span>
+          <span class="skill">After Effects</span>
+          <span class="skill">InDesign</span>
+        </div>
+        <h3>UX methods</h3>
+        <div class="skills-list">
+          <span class="skill">User Interviews</span>
+          <span class="skill">Desk Research</span>
+          <span class="skill">Competitive Analysis</span>
+          <span class="skill">Persona</span>
+          <span class="skill">Flow Chart</span>
+          <span class="skill">Wireframing</span>
+          <span class="skill">Prototyping</span>
+          <span class="skill">Usability Testing</span>
+        </div>
+        <h3>Deliverables</h3>
+        <div class="skills-list">
+          <span class="skill">Mobile App Design</span>
+          <span class="skill">Website Redesign</span>
+          <span class="skill">Design System</span>
+          <span class="skill">Promotion Page</span>
+          <span class="skill">SNS Content</span>
+          <span class="skill">Illustration</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-grid">
+      <div>
+        <p class="section-label">Contact</p>
+        <h2 class="contact-headline">Let's work<br>together.</h2>
+        <p class="contact-note">I'm currently open to full-time roles and internships in UX/UI design, particularly with teams based in Singapore, Canada, or the UK.</p>
+        <a class="btn btn-primary" href="mailto:yk206051@gmail.com">Send an email</a>
+      </div>
+      <div style="margin-top: 2.5rem;">
+        <div class="contact-info-row">
+          <span class="ci-label">Email</span>
+          <span class="ci-val">yk206051@gmail.com</span>
+        </div>
+        <div class="contact-info-row">
+          <span class="ci-label">Phone</span>
+          <span class="ci-val">010-6707-3375</span>
+        </div>
+        <div class="contact-info-row">
+          <span class="ci-label">Location</span>
+          <span class="ci-val">Busan, South Korea</span>
+        </div>
+        <div class="contact-info-row">
+          <span class="ci-label">Open to</span>
+          <span class="ci-val">Singapore · Canada · UK · Remote</span>
+        </div>
+        <div class="contact-info-row">
+          <span class="ci-label">Availability</span>
+          <span class="ci-val">Immediately available</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Kim Yungyeong · 2026</span>
+    <span>UX/UI Designer · Busan, Korea</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
